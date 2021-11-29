@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -14,29 +15,34 @@ namespace Business.Concrete
         {
             _categoryDal = categoryDal;
         }
-        public void Add(Category category)
+        public IResult Add(Category category)
         {
             _categoryDal.Add(category);
+            return new SuccessResult("Kategori eklendi.");
         }
 
-        public void Delete(Category category)
+        public IResult Delete(Category category)
         {
             _categoryDal.Delete(category);
+            return new SuccessResult("Kategori silindi.");
         }
 
-        public Category Get(Category category)
+        public IDataResult<Category> Get(Category category)
         {
-            return _categoryDal.Get(c=>c.CategoryId==category.CategoryId);
+            var result= _categoryDal.Get(c=>c.CategoryId==category.CategoryId);
+            return new SuccessDataResult<Category>(result,"Kategori listelendi.");
         }
 
-        public List<Category> GetAll()
+        public IDataResult<List<Category>> GetAll()
         {
-            return _categoryDal.GetAll();
+            var result= _categoryDal.GetAll();
+            return new SuccessDataResult<List<Category>>(result,"Kategoriler listelendi.");
         }
 
-        public void Update(Category category)
+        public IResult Update(Category category)
         {
             _categoryDal.Update(category);
+            return new SuccessResult("Kategori güncellendi.");
         }
     }
 }

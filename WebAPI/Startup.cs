@@ -33,6 +33,8 @@ namespace WebAPI
             services.AddCors();
             services.AddSingleton<ITodoService, TodoManager>();
             services.AddSingleton<ITodoDal, EfTodoDal>();
+            services.AddSingleton<ICategoryService, CategoryManager>();
+            services.AddSingleton<ICategoryDal, EfCategoryDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
